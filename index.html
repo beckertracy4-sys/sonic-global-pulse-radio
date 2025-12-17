@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HD Dark Theme MP3 Player</title>
+<title>HD Dark Theme MP3 & Video Player with Schedule</title>
 <!-- Google Fonts for a modern look -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -41,8 +41,8 @@
     transition: all 0.3s ease;
   }
 
-  .section:hover {
-    box-shadow: 0 0 40px rgba(0,255,255,0.6);
+  .section.hidden {
+    display: none;
   }
 
   h2 {
@@ -53,20 +53,10 @@
     margin-bottom: 15px;
   }
 
-  /* Style the audio controls */
-  audio {
-    width: 100%;
-    outline: none;
-    border-radius: 10px;
-    background: #222;
-  }
-
-  /* Embed iframe styling */
-  iframe {
+  /* Style the controls */
+  audio, video {
     width: 100%;
     border-radius: 10px;
-    border: none;
-    height: 100px;
   }
 
   /* Responsive adjustments */
@@ -82,10 +72,10 @@
 </head>
 <body>
 
-<h1>Sonic/Global Pulse radio station</h1>
+<h1>Schedule: MP3 & Video Content</h1>
 
 <!-- Live Stream Player -->
-<div class="section">
+<div id="audioSection" class="section">
   <h2>My Live Stream</h2>
   <audio controls autoplay>
     <source src="YOUR_STREAM_URL_HERE" type="audio/mpeg" />
@@ -93,8 +83,17 @@
   </audio>
 </div>
 
+<!-- Live Video Player -->
+<div id="videoSection" class="section hidden">
+  <h2>Live Video Stream</h2>
+  <video controls autoplay>
+    <source src="YOUR_VIDEO_STREAM_URL_HERE" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</div>
+
 <!-- Deezer Playlist Embed -->
-<div class="section">
+<div id="playlistSection" class="section hidden">
   <h2>Listen to a Deezer Playlist</h2>
   <iframe 
     src="https://widget.deezer.com/widget/dark/playlist/YOUR_PLAYLIST_ID" 
@@ -103,18 +102,43 @@
   </iframe>
 </div>
 
-<div class="section">
-  <h2>Live Video Stream</h2>
-  <video controls autoplay style="width: 100%; border-radius: 10px;">
-    <source src="YOUR_VIDEO_STREAM_URL_HERE" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</div>
-
-<!-- Optional: Additional decoration or footer -->
+<!-- Optional footer -->
 <footer style="margin: 40px 20px; text-align: center; font-size: 1em; color: #888;">
-  &copy; 2025 Welcome. All rights reserved.
+  &copy; 2024 Your Name. All rights reserved.
 </footer>
+
+<script>
+  // Set durations for each content in milliseconds
+  const schedule = [
+    { elementId: 'audioSection', duration: 10 * 60 * 1000 }, // 10 minutes
+    { elementId: 'videoSection', duration: 10 * 60 * 1000 }, // next 10 minutes
+    { elementId: 'playlistSection', duration: 10 * 60 * 1000 } // next 10 minutes
+  ];
+
+  let currentIndex = 0;
+
+  function showSection(index) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(div => div.classList.add('hidden'));
+    // Show current
+    document.getElementById(schedule[index].elementId).classList.remove('hidden');
+  }
+
+  function startSchedule() {
+    showSection(currentIndex);
+    // Set timer for next
+    setTimeout(() => {
+      currentIndex++;
+      if (currentIndex >= schedule.length) {
+        currentIndex = 0; // Loop back to start
+      }
+      startSchedule();
+    }, schedule[currentIndex].duration);
+  }
+
+  // Start the schedule after page loads
+  window.onload = startSchedule;
+</script>
 
 </body>
 </html>
