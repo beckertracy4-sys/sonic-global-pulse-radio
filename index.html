@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HD Sonic/Global Pulse radio station</title>
+<title>HD Dark Theme MP3 & Video Radio</title>
 <!-- Google Fonts for a modern look -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 <style>
   /* Reset and base styles */
   body {
@@ -22,14 +22,42 @@
   }
 
   h1 {
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 2.5em;
     color: #00ffff;
     text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    text-align: center;
   }
 
-  /* Decorations / borders */
-  .section {
+  /* Navigation menu styles */
+  nav {
+    background-color: #222;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  nav a {
+    margin: 0 20px;
+    color: #00ffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s, transform 0.3s;
+  }
+
+  nav a:hover {
+    color: #ff00ff;
+    transform: scale(1.05);
+  }
+
+  /* Content sections styles */
+.section {
     background: #1f1f1f;
     border: 2px solid #00ffff;
     border-radius: 15px;
@@ -41,7 +69,8 @@
     transition: all 0.3s ease;
   }
 
-  .section.hidden {
+  /* Hidden class for toggling sections if needed */
+  .hidden {
     display: none;
   }
 
@@ -53,29 +82,55 @@
     margin-bottom: 15px;
   }
 
-  /* Style the controls */
-  audio, video {
+  /* Style media elements */
+audio, video {
     width: 100%;
     border-radius: 10px;
   }
 
-  /* Responsive adjustments */
-  @media(max-width: 600px){
-    h1 {
-      font-size: 2em;
-    }
-    h2 {
-      font-size: 1.5em;
-    }
+  iframe {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    height: 100px;
   }
+
+  /* Footer styles */
+footer {
+    margin: 40px 20px;
+    text-align: center;
+    font-size: 1em;
+    color: #888;
+  }
+
+  /* Responsive adjustments */
+@media(max-width: 600px){
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  nav a {
+    margin: 0 10px;
+    font-size: 1em;
+  }
+}
 </style>
 </head>
 <body>
 
-<h1>Schedule: MP3 & Video Content</h1>
+<h1>HD Dark Theme MP3 & Video Radio</h1>
+
+<!-- Navigation Menu -->
+<nav>
+  <a href="#live">Live Stream</a>
+  <a href="#video">Video Stream</a>
+  <a href="#playlist">Playlist</a>
+</nav>
 
 <!-- Live Stream Player -->
-<div id="audioSection" class="section">
+<div id="live" class="section">
   <h2>My Live Stream</h2>
   <audio controls autoplay>
     <source src="YOUR_STREAM_URL_HERE" type="audio/mpeg" />
@@ -84,7 +139,7 @@
 </div>
 
 <!-- Live Video Player -->
-<div id="videoSection" class="section hidden">
+<div id="video" class="section">
   <h2>Live Video Stream</h2>
   <video controls autoplay>
     <source src="YOUR_VIDEO_STREAM_URL_HERE" type="video/mp4" />
@@ -93,7 +148,7 @@
 </div>
 
 <!-- Deezer Playlist Embed -->
-<div id="playlistSection" class="section hidden">
+<div id="playlist" class="section">
   <h2>Listen to a Deezer Playlist</h2>
   <iframe 
     src="https://widget.deezer.com/widget/dark/playlist/YOUR_PLAYLIST_ID" 
@@ -102,42 +157,22 @@
   </iframe>
 </div>
 
-<!-- Optional footer -->
-<footer style="margin: 40px 20px; text-align: center; font-size: 1em; color: #888;">
+<!-- Footer -->
+<footer>
   &copy; 2024 Your Name. All rights reserved.
 </footer>
 
+<!-- Optional: JavaScript for smooth scroll (modern browsers support CSS 'scroll-behavior') -->
 <script>
-  // Set durations for each content in milliseconds
-  const schedule = [
-    { elementId: 'audioSection', duration: 10 * 60 * 1000 }, // 10 minutes
-    { elementId: 'videoSection', duration: 10 * 60 * 1000 }, // next 10 minutes
-    { elementId: 'playlistSection', duration: 10 * 60 * 1000 } // next 10 minutes
-  ];
-
-  let currentIndex = 0;
-
-  function showSection(index) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(div => div.classList.add('hidden'));
-    // Show current
-    document.getElementById(schedule[index].elementId).classList.remove('hidden');
-  }
-
-  function startSchedule() {
-    showSection(currentIndex);
-    // Set timer for next
-    setTimeout(() => {
-      currentIndex++;
-      if (currentIndex >= schedule.length) {
-        currentIndex = 0; // Loop back to start
-      }
-      startSchedule();
-    }, schedule[currentIndex].duration);
-  }
-
-  // Start the schedule after page loads
-  window.onload = startSchedule;
+  // Smooth scroll for anchor links (if needed)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
 </script>
 
 </body>
