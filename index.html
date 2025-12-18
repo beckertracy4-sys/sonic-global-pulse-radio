@@ -142,7 +142,18 @@ footer {
 <div id="video" class="section">
   <h2>Live Video Stream</h2>
   <video controls autoplay>
-    <source src="" type="video/mp4" />
+    <source src="<!-- Add a placeholder for the Twitch embed -->
+<div id="twitch-embed"></div>
+
+<!-- Load the Twitch embed script -->
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
+
+<!-- Create a Twitch.Player object. This will render within the placeholder div -->
+<script type="text/javascript">
+  new Twitch.Player("twitch-embed", {
+    channel: "lovelyhomie"
+  });
+</script>" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 </div>
